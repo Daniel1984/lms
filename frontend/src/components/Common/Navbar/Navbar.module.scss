@@ -1,0 +1,41 @@
+@import '../../../variables.scss';
+
+.root {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: $navbarHeight;
+  padding: 10px;
+  justify-content: space-between;
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 20px;
+}
+
+.logo {
+  height: 100%;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.link {
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  color: $colorPrimaryLight;
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    color: $colorPrimaryLight;
+  }
+}
+
+.addBook {
+  font-weight: 800;
+}

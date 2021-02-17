@@ -1,0 +1,111 @@
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
+import { getBook } from '../../api/book'
+import Spinner from '../Common/Spinner/Spinner'
+import InfoBox from '../Common/InfoBox/InfoBox'
+import Center from '../Common/Center/Center'
+import Headline from '../Common/Headline/Headline'
+import BookForm from '../BookForm/BookForm'
+import BookChangelog from '../BookChangelog/BookChangelog'
+import css from './Book.module.scss'
+
+export class Book extends Component {
+  state = {
+    loading: false,
+    error: '',
+    book: {}
+  }
+
+  componentDidMount() {
+    const {
+      match: { params: { id } },
+      location: { book }
+    } = this.props
+
+    // in case we edit prefetched book, we persist it to state
+    if (book) {
+      this.setState({ book })
+      return
+    }
+
+    // if url params contain id but book is not in state, we fetch it
+    if (id && !book) {
+      this.setState({ loading: true }, async () => {
+        try {
+          const bookResp = await getBook()
+          this.setState({
+            loading: false,
+            book: bookResp
+          })
+        } catch (err) {
+          this.setState({
+            loading: false,
+            error: err.message
+          })
+        }
+      })
+    }
+  }
+
+  render() {
+    const { loading, error, book } = this.state
+
+    return (
+      <div className={css.root}>
+        {loading && (
+          <Center>
+            <Spinner message="Loading book data..."/>
+          </Center>
+        )}
+
+        {error && (
+          <Center>
+            <InfoBox type="alert">
+              <div className={css.error}>
+                {error}
+              </div>
+            </InfoBox>
+          </Center>
+        )}
+
+        {(!error && !loading) && (
+          <>
+            <div className={css.col}>
+              <Headline>
+                {book.title ? 'Edit book' : 'Insert New Book'}
+              </Headline>
+              <BookForm book={book} />
+            </div>
+
+            <div className={css.col}>
+              <Headline>
+                Changelog
+              </Headline>
+              <BookChangelog changelog={book.changelog} />
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
+}
+
+Book.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      merchantId: PropTypes.string,
+    }),
+  }).isRequired,
+  location: PropTypes.shape({
+    book: PropTypes.shape({})
+  })
+}
+
+Book.defaultProps = {
+  location: {
+    book: {}
+  }
+}
+
+export default withRouter(Book)

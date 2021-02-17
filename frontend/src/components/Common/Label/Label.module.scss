@@ -1,0 +1,22 @@
+.root {
+  width: 100px;
+  margin: 10px 10px 5px 0;
+  display: inline-block;
+  font-size: 15px;
+  text-align: right;
+  color: rgba(10, 31, 68, 0.75);
+  cursor: pointer;
+}
+
+.vertical {
+  width: auto;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.disabled {
+  opacity: .5;
+  cursor: default;
+}

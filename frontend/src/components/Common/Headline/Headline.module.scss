@@ -1,0 +1,9 @@
+@import '../../../variables.scss';
+
+.root {
+  margin: 24px 0;
+  padding-bottom: 10px;
+  font-size: 22px;
+  color: $colorText;
+  border-bottom: 1px solid $colorLines;
+}

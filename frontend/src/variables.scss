@@ -1,0 +1,55 @@
+$colorPrimaryLight: #1f2630;
+$colorPrimaryDark: #191d26;
+$colorBrand: #89cc21;
+$colorPrimary: $colorBrand;
+$colorAccent: #FF9933;
+$colorSuccess: #3ac430;
+$colorSuccessLighter: #69bf0a;
+$colorDanger: #d64848;
+$colorUltraLightDanger: #ffe5e9;
+$colorWarning: #fe9705;
+$colorMuted: #8a94a6;
+$colorMutedDark: #53627c;
+$colorText: #0a1f44;
+$colorTextLight: $colorMuted;
+$colorTextUltraLight: #dae3ea;
+$colorLines: #c9d1dd;
+$colorLinesDark: $colorText;
+$colorLinesMediumDark: #2a323e;
+$colorLinesLightDark: #363b45;
+$colorLightGrey: #f5f8f9;
+$colorDarkGrey: #eef3f8;
+$colorInfo: #1890ff;
+
+$colorBtnDefault: $colorAccent;
+$colorBtnDefaultActive: $colorAccent;
+$colorBtnDefaultHover: $colorAccent;
+
+$colorBtnSuccess: $colorBrand;
+$colorBtnSuccessActive: $colorBrand;
+$colorBtnSuccessHover: darken($colorBrand, 5%);
+
+$colorBtnDanger: $colorDanger;
+$colorBtnDangerActive: $colorDanger;
+$colorBtnDangerHover: darken($colorDanger, 5%);
+
+$colorBtnBrand: $colorBrand;
+$colorBtnBrandActive: $colorBrand;
+$colorBtnBrandHover: darken($colorBrand, 5%);
+
+$colorBtnDisabled: $colorLines;
+$colorLinesActive: $colorLinesLightDark;
+
+$fontNormal: 400;
+$fontRegular: 500;
+$fontSemiBold: 600;
+$fontBold: 700;
+
+$screenXs: 480px;
+$screenSm: 700px;
+$screenMd: 1010px;
+$screenLg: 1200px;
+$screenXlg: 1800px;
+$maxContentWidth: 1350px;
+
+$navbarHeight: 90px;

@@ -1,0 +1,30 @@
+@import '../../variables.scss';
+
+.root {
+  border: 1px solid $colorLines;
+}
+
+.row {
+  display: flex;
+  padding: 6px;
+
+  &:nth-child(even) {
+    background-color: whitesmoke;
+  }
+
+  &:nth-child(odd) {
+    background-color: #fff;
+  }
+
+  &.heading {
+    padding: 10px 6px;
+    font-weight: $fontBold;
+  }
+}
+
+.col {
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

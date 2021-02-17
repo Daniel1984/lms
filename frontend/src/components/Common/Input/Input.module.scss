@@ -1,0 +1,40 @@
+@import '../../../variables.scss';
+
+.root {
+  width: 100%;
+}
+
+.input {
+  padding: 0 10px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid $colorLines;
+  font-size: 16px;
+  display: block;
+  background-color: #fff;
+  outline: 0;
+  outline: none;
+
+  &:focus {
+    border: 1px solid $colorLinesActive;
+  }
+
+  &:disabled {
+    color: $colorLines;
+  }
+
+  &.withError {
+    border-color: $colorDanger;
+
+    &:focus {
+      box-shadow: 0 0 5px 0 rgba(255, 0, 0, 0.5);
+    }
+  }
+}
+
+.error {
+  display: block;
+  padding-top: 5px;
+  font-size: 13px;
+  color: $colorDanger;
+}

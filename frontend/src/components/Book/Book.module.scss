@@ -1,0 +1,36 @@
+@import '../../variables.scss';
+
+.root {
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: $screenLg) {
+    flex-flow: column;
+  }
+}
+
+.col {
+  padding: 20px 20px 0;
+  position: relative;
+
+  &:first-child {
+    flex: 1;
+    border-right: 1px solid $colorLines;
+
+    @media (max-width: $screenLg) {
+      border-right: 0;
+    }
+  }
+
+  &:last-child {
+    flex: 2;
+
+    @media (max-width: $screenLg) {
+      flex: 1;
+    }
+  }
+}
+
+.error {
+  min-width: 300px;
+}

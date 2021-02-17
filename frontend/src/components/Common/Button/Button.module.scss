@@ -1,0 +1,77 @@
+@import '../../../variables.scss';
+
+.root {
+  margin: 0;
+  padding: 0 10px;
+  min-height: 30px;
+  max-height: 50px;
+  height: 100%;
+  width: 100%;
+  border: 0;
+  font-size: 12px;
+  line-height: 1;
+  border-radius: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  outline: none;
+  cursor: pointer;
+  transition: all .2s;
+
+  &:disabled, &:disabled:hover {
+    color: #fff;
+    background-color: $colorBtnDisabled;
+    cursor: not-allowed;
+  }
+}
+
+.success {
+  color: #fff;
+  background-color: $colorBtnSuccess;
+
+  &:hover {
+    background-color: $colorBtnSuccessHover;
+  }
+
+  &:active {
+    background-color: $colorBtnSuccessActive;
+  }
+}
+
+.danger {
+  color: #fff;
+  background-color: $colorBtnDanger;
+
+  &:hover {
+    background-color: $colorBtnDangerHover;
+  }
+
+  &:active {
+    background-color: $colorBtnDangerActive;
+  }
+}
+
+.default {
+  color: #fff;
+  background-color: $colorBtnDefault;
+
+  &:hover {
+    background-color: $colorBtnDefaultHover;
+  }
+
+  &:active {
+    background-color: $colorBtnDefaultActive;
+  }
+}
+
+.brand {
+  color: #fff;
+  background-color: $colorBtnBrand;
+
+  &:hover {
+    background-color: $colorBtnBrandHover;
+  }
+
+  &:active {
+    background-color: $colorBtnBrandActive;
+  }
+}

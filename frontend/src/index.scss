@@ -1,0 +1,14 @@
+@import-normalize;
+@import './variables.scss';
+
+body {
+  margin: 0;
+  padding-top: $navbarHeight;
+  background-color: whitesmoke;
+
+  #root {
+    height: auto;
+    min-height: calc(100vh - #{$navbarHeight});
+  }
+}
+
