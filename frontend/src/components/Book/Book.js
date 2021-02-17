@@ -19,7 +19,7 @@ export class Book extends Component {
 
   componentDidMount() {
     const {
-      match: { params: { id } },
+      match: { params: { id, author } },
       location: { book }
     } = this.props
 
@@ -30,13 +30,23 @@ export class Book extends Component {
     }
 
     // if url params contain id but book is not in state, we fetch it
-    if (id && !book) {
+    if (id && author && !book) {
       this.setState({ loading: true }, async () => {
         try {
-          const bookResp = await getBook()
+          const { data: books } = await getBook(id, author)
+
+          if (books.length) {
+            this.setState({
+              loading: false,
+              book: books[0]
+            })
+            return
+          }
+
           this.setState({
             loading: false,
-            book: bookResp
+            book: null,
+            error: 'book not found'
           })
         } catch (err) {
           this.setState({

@@ -15,10 +15,9 @@ export class Books extends Component {
   }
 
   componentDidMount() {
-    console.log('fetching books')
     this.setState({ loading: true }, async () => {
       try {
-        const books = await getBooks()
+        const { data: books } = await getBooks()
         this.setState({
           loading: false,
           books

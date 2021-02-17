@@ -24,7 +24,7 @@ const BookList = ({ books }) => {
             </div>
           ))}
           <div className={css.col}>
-            <Link to={{ pathname: `/books/${book.id}`, book }}>
+            <Link to={{ pathname: `/books/${book.id}/${book.author}`, book }}>
               Edit
             </Link>
           </div>

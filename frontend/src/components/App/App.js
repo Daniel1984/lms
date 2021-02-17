@@ -20,7 +20,7 @@ function App() {
               path="/books/new"
               render={props => <Book {...props} key={Date.now()} />}
             />
-            <Route path="/books/:id">
+            <Route path="/books/:id/:author">
               <Book />
             </Route>
             <Route component={Page404} />

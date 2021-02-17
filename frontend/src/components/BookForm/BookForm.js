@@ -19,18 +19,30 @@ export class BookFormInner extends Component {
 
   render() {
     const {
+      dirty,
       errors,
       touched,
       isSubmitting,
       handleSubmit,
       status,
-      location: { book }
+      book,
     } = this.props
 
     const hasErrors = !!Object.keys(errors).length
 
     return (
       <Form onSubmit={handleSubmit}>
+        <FormControl label="Author" htmlFor="author">
+          <Input
+            disabled={book && book.id}
+            type="text"
+            name="author"
+            id="author"
+            placeholder="author"
+            error={touched.author && errors.author}
+          />
+        </FormControl>
+
         <FormControl label="Title" htmlFor="title">
           <Input
             type="text"
@@ -38,16 +50,6 @@ export class BookFormInner extends Component {
             id="title"
             placeholder="title"
             error={touched.title && errors.title}
-          />
-        </FormControl>
-
-        <FormControl label="Author" htmlFor="author">
-          <Input
-            type="text"
-            name="author"
-            id="author"
-            placeholder="author"
-            error={touched.author && errors.author}
           />
         </FormControl>
 
@@ -81,7 +83,7 @@ export class BookFormInner extends Component {
           <Button
             kind="success"
             type="submit"
-            disabled={hasErrors || isSubmitting}
+            disabled={hasErrors || isSubmitting || !dirty}
           >
             {book && book.title ? 'Update' : 'Create'}
           </Button>
@@ -132,13 +134,13 @@ BookFormInner.propTypes = {
 BookFormInner.defaultProps = {
   status: {},
   location: {
-    book: {}
+    book: null
   }
 }
 
 const BookForm = withFormik({
   mapPropsToValues: (props) => ({
-    ...props.location.book
+    ...(props.location.book && props.location.book.id  ? props.location.book : props.book)
   }),
 
   validationSchema: bookSchema,
