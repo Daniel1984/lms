@@ -1,0 +1,9 @@
+.terraform
+terraform.tfstate*
+terraform.tfvars*
+
+main
+main.zip
+
+build
+node_modules
