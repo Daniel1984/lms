@@ -13,3 +13,8 @@ Playground for testing go -> terraform -> serverless
    `cd prod/remote_state && terraform plan && terraform apply -auto-approve`
    Then stack can be deployed:
    `cd prod && terraform init && ./deploy.sh`
+
+### Note on book model
+It contains changelog field and each time book instance is updated, changelog
+is populated with changes made to book. This is almost like pseudo event
+sourcing and can be used to revert book to certain state.
