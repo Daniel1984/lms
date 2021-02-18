@@ -44,11 +44,13 @@ func Run(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, err
 	}))
 
 	svc := dynamodb.New(sess)
-	book.ChangeLog = append(book.ChangeLog, book.Changelog())
-	cl, err := dynamodbattribute.MarshalList(book.ChangeLog)
+
+	newChangelogtem, err := dynamodbattribute.Marshal(book.Changelog())
 	if err != nil {
 		return rw.RespondWithError(400, []byte(err.Error())), nil
 	}
+
+	ncl := []*dynamodb.AttributeValue{newChangelogtem}
 
 	input := &dynamodb.UpdateItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
@@ -72,13 +74,13 @@ func Run(req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, err
 			":u": {
 				S: aws.String(time.Now().UTC().Format(time.RFC3339)),
 			},
-			":cl": {
-				L: cl,
+			":ncl": {
+				L: ncl,
 			},
 		},
 		TableName:        aws.String(tableName),
 		ReturnValues:     aws.String("UPDATED_NEW"),
-		UpdateExpression: aws.String("set title = :t, description = :d, isbn = :i, updated_at = :u, changelog = list_append(changelog, :cl)"),
+		UpdateExpression: aws.String("set title = :t, description = :d, isbn = :i, updated_at = :u, changelog = list_append(changelog, :ncl)"),
 	}
 
 	if _, err := svc.UpdateItem(input); err != nil {
