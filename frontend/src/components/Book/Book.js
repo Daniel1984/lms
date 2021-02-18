@@ -14,7 +14,7 @@ export class Book extends Component {
   state = {
     loading: false,
     error: '',
-    book: {}
+    book: null
   }
 
   componentDidMount() {
@@ -23,8 +23,9 @@ export class Book extends Component {
       location: { book }
     } = this.props
 
+    const haveBook = book && Object.keys(book).length
     // in case we edit prefetched book, we persist it to state
-    if (book) {
+    if (haveBook) {
       this.setState({ book })
       return
     }
@@ -38,7 +39,7 @@ export class Book extends Component {
           if (books.length) {
             this.setState({
               loading: false,
-              book: books[0]
+              book: books[0],
             })
             return
           }
@@ -79,16 +80,16 @@ export class Book extends Component {
           </Center>
         )}
 
-        {(!error && !loading) && (
+        {(!error && !loading && book) && (
           <>
-            <div className={css.col}>
+            <div key={"abc"} className={css.col}>
               <Headline>
                 {book.title ? 'Edit book' : 'Insert New Book'}
               </Headline>
               <BookForm book={book} />
             </div>
 
-            <div className={css.col}>
+            <div key={"def"} className={css.col}>
               <Headline>
                 Changelog
               </Headline>
