@@ -14,6 +14,10 @@ export function getBook(id, author) {
   return axios.get(`${API_ENDPOINT}?bookID=${id}&author=${author}`)
 }
 
+export function deleteBook(id, author) {
+  return axios.delete(`${API_ENDPOINT}?bookID=${id}&author=${author}`)
+}
+
 export function getBooks() {
   return axios.get(API_ENDPOINT)
 }

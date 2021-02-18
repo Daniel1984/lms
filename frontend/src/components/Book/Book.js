@@ -14,7 +14,7 @@ export class Book extends Component {
   state = {
     loading: false,
     error: '',
-    book: null
+    book: {}
   }
 
   componentDidMount() {
@@ -35,11 +35,12 @@ export class Book extends Component {
       this.setState({ loading: true }, async () => {
         try {
           const { data: books } = await getBook(id, author)
+          const respBook = books.filter(b => b.id === id && b.author === author)
 
-          if (books.length) {
+          if (respBook.length) {
             this.setState({
               loading: false,
-              book: books[0],
+              book: respBook[0],
             })
             return
           }

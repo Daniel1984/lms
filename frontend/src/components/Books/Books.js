@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { getBooks } from '../../api/book'
+import { getBooks, deleteBook } from '../../api/book'
 import InfoBox from '../Common/InfoBox/InfoBox'
 import Spinner from '../Common/Spinner/Spinner'
 import Headline from '../Common/Headline/Headline'
@@ -17,6 +17,24 @@ export class Books extends Component {
   componentDidMount() {
     this.setState({ loading: true }, async () => {
       try {
+        const { data: books } = await getBooks()
+        this.setState({
+          loading: false,
+          books
+        })
+      } catch (err) {
+        this.setState({
+          loading: false,
+          error: err.message
+        })
+      }
+    })
+  }
+
+  async deleteBook(id, author) {
+    this.setState({ loading: true }, async () => {
+      try {
+        await deleteBook(id, author)
         const { data: books } = await getBooks()
         this.setState({
           loading: false,
@@ -54,7 +72,10 @@ export class Books extends Component {
         )}
 
         {(!error && !loading && books.length > 0) && (
-          <BookList books={books} />
+          <BookList
+            books={books}
+            deleteBook={(id, author) => this.deleteBook(id, author)}
+          />
         )}
       </div>
     )

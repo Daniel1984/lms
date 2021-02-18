@@ -2,9 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import { Link } from 'react-router-dom'
+import Button from '../Common/Button/Button'
 import css from './BookList.module.scss'
 
-const BookList = ({ books }) => {
+const BookList = ({ books, deleteBook }) => {
   const titles = Object.keys(books[0])
 
   return (
@@ -13,7 +14,8 @@ const BookList = ({ books }) => {
         {titles.map(title => (
           <div key={title} className={css.col}>{title}</div>
         ))}
-        <div className={css.col}>actions</div>
+        <div className={css.col}>Edit</div>
+        <div className={css.col}>Delete</div>
       </div>
 
       {books.map(book => (
@@ -27,6 +29,14 @@ const BookList = ({ books }) => {
             <Link to={{ pathname: `/books/${book.id}/${book.author}`, book }}>
               Edit
             </Link>
+          </div>
+          <div className={css.col}>
+            <Button
+              kind="danger"
+              onClick={() => deleteBook(book.id, book.author)}
+            >
+              Delete
+            </Button>
           </div>
         </div>
       ))}
@@ -43,6 +53,7 @@ const BookList = ({ books }) => {
     isbn: PropTypes.string,
     changelog: PropTypes.arrayOf(PropTypes.shape({}))
   })),
+  deleteBook: PropTypes.func.isRequired
 }
 
 export default BookList
