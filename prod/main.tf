@@ -86,6 +86,26 @@ module update_book_lambda {
 }
 
 #-----------------------------------------------------------------------------------
+# GET BOOK LAMBDA
+#-----------------------------------------------------------------------------------
+module get_book_lambda {
+  source        = "../modules/aws/lambda"
+  function_name = "getbook"
+  description   = "get book lambda, part of books resource CRUD to get book"
+  role_arn      = module.execute_lms_role.execute_lambda_arn
+
+  environment = {
+    ENV        = var.env
+    REGION     = var.region
+    TABLE_NAME = var.table_name
+  }
+
+  tags = {
+    Environment = var.env
+  }
+}
+
+#-----------------------------------------------------------------------------------
 # GET BOOKS LAMBDA
 #-----------------------------------------------------------------------------------
 module get_books_lambda {
