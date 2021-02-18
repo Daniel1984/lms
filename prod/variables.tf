@@ -2,6 +2,10 @@ variable "region" {
   default = "eu-central-1"
 }
 
+variable "api_deployed_at" {
+  description = "api gateway deployment ts"
+}
+
 variable "accountId" {
   default = "173666726976"
 }

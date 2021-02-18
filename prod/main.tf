@@ -34,6 +34,11 @@ resource aws_s3_bucket lmsfrontend {
     enabled = true
   }
 
+  website {
+    error_document = "index.html"
+    index_document = "index.html"
+  }
+
   tags = {
     Name = "${var.prefix}-lmsfrontend-1234567-${var.env}"
     Environment = var.env
@@ -142,9 +147,12 @@ resource aws_api_gateway_deployment apideploy {
    ]
    rest_api_id = aws_api_gateway_rest_api.api.id
    stage_name  = var.env
+   variables   = {
+     deployed_at: var.api_deployed_at
+   }
 }
 
-module "cors" {
+module cors {
   source          = "squidfunk/api-gateway-enable-cors/aws"
   version         = "0.3.1"
   api_id          = aws_api_gateway_rest_api.api.id
