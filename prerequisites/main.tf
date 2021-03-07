@@ -26,10 +26,10 @@ resource aws_dynamodb_table terraform_statelock {
 }
 
 #-----------------------------------------------------------------------------------
-# create S3 bucket that will be used for the backend
+# create S3 bucket that will be used for the api backend state management
 #-----------------------------------------------------------------------------------
-resource aws_s3_bucket remote_state {
-  bucket        = "lms-remote-state"
+resource aws_s3_bucket api_remote_state {
+  bucket        = "api-remote-state"
   acl           = "private"
   force_destroy = true
 
@@ -43,41 +43,18 @@ resource aws_s3_bucket remote_state {
 }
 
 #-----------------------------------------------------------------------------------
-# S3 bucket that will be used for front-end
+# create S3 bucket that will be used for the UI backend state management
 #-----------------------------------------------------------------------------------
-resource aws_s3_bucket lmsfrontend {
-  bucket = var.ui_bucket_name
-  acl    = "public-read"
+resource aws_s3_bucket ui_remote_state {
+  bucket        = "ui-remote-state"
+  acl           = "private"
+  force_destroy = true
 
   versioning {
     enabled = true
   }
 
-  website {
-    error_document = "index.html"
-    index_document = "index.html"
-    routing_rules  = <<EOF
-[{
-  "Condition": {
-    "KeyPrefixEquals": "*"
-  },
-  "Redirect": {
-    "ReplaceKeyPrefixWith": "/"
-  }
-}]
-EOF
-  }
-
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["PUT", "POST"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
-  }
-
   tags = {
-    Name        = var.ui_bucket_name
     Environment = terraform.workspace
   }
 }
@@ -114,8 +91,8 @@ EOF
 #       "Effect": "Allow",
 #       "Action": "S3:*",
 #       "Resource": [
-#         "arn:aws:s3:::${aws_s3_bucket.remote_state.bucket}",
-#         "arn:aws:s3:::${aws_s3_bucket.remote_state.bucket}/*"
+#         "arn:aws:s3:::${aws_s3_bucket.api_remote_state.bucket}",
+#         "arn:aws:s3:::${aws_s3_bucket.api_remote_state.bucket}/*"
 #       ]
 #     },
 #     {
