@@ -9,8 +9,8 @@ provider "aws" {
 terraform {
   backend "s3" {
     region         = "eu-central-1"
-    bucket         = "lms-remote-state"
-    key            = "bookapi.tfstate"
+    bucket         = "api-remote-state"
+    key            = "book_api.tfstate"
     profile        = "lms"
     dynamodb_table = "tf-statelock"
   }
