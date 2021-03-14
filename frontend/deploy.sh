@@ -5,7 +5,7 @@ echo "Building assets"
 NODE_ENV=production yarn build
 
 echo "Updating assets"
-aws s3 cp --recursive build/ s3://lmsfrontend-1234567 --region eu-central-1 --profile lms
+terraform plan -out terraform.tfplan && terraform apply -auto-approve "terraform.tfplan"
 
 echo "cleanup!"
 rm -rf build
